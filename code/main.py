@@ -32,13 +32,13 @@ class Main:
 
     def input(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] and self.snake.direction.y != 1:
             self.snake.direction = pygame.Vector2(0,-1)
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN] and self.snake.direction.y != -1:
             self.snake.direction = pygame.Vector2(0,1)
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] and self.snake.direction.x != 1:
             self.snake.direction = pygame.Vector2(-1,0)
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and self.snake.direction.x != -1:
             self.snake.direction = pygame.Vector2(1,0)
             
     def eat_apple(self):
