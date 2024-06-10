@@ -40,6 +40,11 @@ class Main:
             self.snake.direction = pygame.Vector2(-1,0)
         if keys[pygame.K_RIGHT]:
             self.snake.direction = pygame.Vector2(1,0)
+            
+    def eat_apple(self):
+        if self.snake.body[0] == self.apple.pos:
+            self.snake.body.append(self.snake.body[-1])
+            self.apple.set_pos()
     
     def run(self):
         while True:
@@ -52,6 +57,7 @@ class Main:
             
             #updates
             self.input()
+            self.eat_apple()
             
             #drawing
             self.draw_bg()
