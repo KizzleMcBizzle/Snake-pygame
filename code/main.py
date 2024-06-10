@@ -58,6 +58,7 @@ class Main:
     
     def run(self):
         while True:
+            keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -67,6 +68,8 @@ class Main:
                     
                 if event.type == pygame.KEYDOWN and not self.game_active:
                     self.game_active = True
+                if keys[pygame.K_ESCAPE]:
+                    self.game_active = not self.game_active
 
             #updates
             self.input()
