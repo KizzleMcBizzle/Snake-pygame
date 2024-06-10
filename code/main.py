@@ -22,7 +22,8 @@ class Main:
         
         #timer
         self.update_timer = pygame.event.custom_type()
-        pygame.time.set_timer(self.update_timer, 200)
+        pygame.time.set_timer(self.update_timer, 100)
+        self.game_active = False
         
     def draw_bg(self):
         self.display_surface.fill(lightGreen)
@@ -41,10 +42,19 @@ class Main:
         if keys[pygame.K_RIGHT] and self.snake.direction.x != -1:
             self.snake.direction = pygame.Vector2(1,0)
             
-    def eat_apple(self):
+    def collision(self):
+        # 1. Apple collision
         if self.snake.body[0] == self.apple.pos:
             self.snake.body.append(self.snake.body[-1])
             self.apple.set_pos()
+    
+        #2. Wall or Snake collision (Game Over) 
+        if self.snake.body[0] in self.snake.body[1:] or \
+            not 0 <= self.snake.body[0].x < cols or \
+            not 0 <= self.snake.body[0].y < rows:
+            self.snake.reset()
+            self.game_active = False
+            
     
     def run(self):
         while True:
@@ -52,12 +62,15 @@ class Main:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
-                if event.type == self.update_timer:
+                if event.type == self.update_timer and self.game_active:
                     self.snake.update()
-            
+                    
+                if event.type == pygame.KEYDOWN and not self.game_active:
+                    self.game_active = True
+
             #updates
             self.input()
-            self.eat_apple()
+            self.collision()
             
             #drawing
             self.draw_bg()

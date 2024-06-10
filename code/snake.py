@@ -14,6 +14,10 @@ class Snake:
         # 3. update the original body list
         self.body = bodyCopy[:]
         
+    def reset(self):
+        self.body = [pygame.Vector2(start_col - col,start_row) for col in range(start_length)]
+        self.direction = pygame.Vector2(1,0)
+        
     
     def draw(self):
         for point in self.body:
