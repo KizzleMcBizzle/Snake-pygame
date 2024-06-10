@@ -8,6 +8,7 @@ class Main:
         pygame.init()
         self.display_surface = pygame.display.set_mode((window_width, window_height))
         pygame.display.set_caption('Snake')
+        self.game_paused = False
         
         #game objects
         
@@ -58,18 +59,22 @@ class Main:
     
     def run(self):
         while True:
-            keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
-                if event.type == self.update_timer and self.game_active:
+                if event.type == self.update_timer and self.game_active and not self.game_paused:
                     self.snake.update()
-                    
-                if event.type == pygame.KEYDOWN and not self.game_active:
-                    self.game_active = True
-                if keys[pygame.K_ESCAPE]:
-                    self.game_active = not self.game_active
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.game_paused = not self.game_paused
+    
+            keys = pygame.key.get_pressed()
+            if not self.game_active:
+                self.game_active = True
+    
+            #updates
+            self.input()
 
             #updates
             self.input()
