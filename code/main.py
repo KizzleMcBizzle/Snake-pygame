@@ -20,6 +20,9 @@ class Main:
         self.snake = Snake()
         self.apple = Apple(self.snake)
         
+        #timer
+        self.update_timer = pygame.event.custom_type()
+        pygame.time.set_timer(self.update_timer, 200)
         
     def draw_bg(self):
         self.display_surface.fill(lightGreen)
@@ -27,13 +30,30 @@ class Main:
             pygame.draw.rect(self.display_surface, darkGreen, bg_rect)
         
 
+    def input(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP]:
+            self.snake.direction = pygame.Vector2(0,-1)
+        if keys[pygame.K_DOWN]:
+            self.snake.direction = pygame.Vector2(0,1)
+        if keys[pygame.K_LEFT]:
+            self.snake.direction = pygame.Vector2(-1,0)
+        if keys[pygame.K_RIGHT]:
+            self.snake.direction = pygame.Vector2(1,0)
+    
     def run(self):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
+                if event.type == self.update_timer:
+                    self.snake.update()
             
+            #updates
+            self.input()
+            
+            #drawing
             self.draw_bg()
             self.snake.draw()
             self.apple.draw()        
