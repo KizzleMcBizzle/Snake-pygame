@@ -9,8 +9,8 @@ window_width = cellSize * cols
 window_height = cellSize * rows
 
 # Colors
-lightGreen = '#aad751'
-darkGreen = '#a2d149'
+lightGreen = '#5ecc2f'
+darkGreen = '#51a32e'
 
 # Start position
 start_length = 3
