@@ -12,7 +12,7 @@ window_height = cellSize * rows
 lightGreen = '#5ecc2f'
 darkGreen = '#51a32e'
 
-# Start position
+# Snake Start position
 start_length = 3
 start_row = rows // 2
 start_col = start_length + 2

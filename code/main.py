@@ -1,5 +1,5 @@
 from settings import *
-
+from snake import Snake
 class Main:
     def __init__(self):
         
@@ -10,10 +10,13 @@ class Main:
         
         #game objects
         
-        #background rectangles to be checkered
+        #checkerboard background
         self.bg_rects = [ pygame.Rect((col + row%2) * cellSize, row * cellSize, cellSize, cellSize) 
                          for row in range(rows) 
                          for col in range(0,cols,2)]
+        
+        #Snake
+        self.snake = Snake()
         
     def draw_bg(self):
         for bg_rect in self.bg_rects:
@@ -28,9 +31,10 @@ class Main:
                     exit()
             
             self.display_surface.fill(lightGreen)
-            self.draw_bg()        
+            self.draw_bg()
+            self.snake.draw()        
             pygame.display.update()
 
-
-main = Main()
-main.run()
+if __name__ == '__main__':
+    main = Main()
+    main.run()
