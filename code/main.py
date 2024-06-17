@@ -66,20 +66,15 @@ class Main:
                 if event.type == self.update_timer and self.game_active and not self.game_paused:
                     self.snake.update()
                 if event.type == pygame.KEYDOWN:
+                    self.game_active = True
                     if event.key == pygame.K_ESCAPE:
                         self.game_paused = not self.game_paused
-    
-            keys = pygame.key.get_pressed()
-            if not self.game_active:
-                self.game_active = True
-    
-            #updates
-            self.input()
 
             #updates
-            self.input()
-            self.collision()
-            
+            if self.game_active:
+                self.input()
+                self.collision()
+                
             #drawing
             self.draw_bg()
             self.snake.draw()
